@@ -18,19 +18,27 @@ import java.util.function.Consumer;
  * This class contains various static methods to allowing events and asynchronous results to be accessed
  * in a synchronous way.
  *
+ * 这个类包含了不同的静态方法,允许事件和异步结果以同步方式访问.
+ *
  * @author <a href="http://tfox.org">Tim Fox</a>
  */
 public class Sync {
 
+  /**
+   * 纤程调用器上下文
+   */
   private static final String FIBER_SCHEDULER_CONTEXT_KEY = "__vertx-sync.fiberScheduler";
 
   /**
    * Invoke an asynchronous operation and obtain the result synchronous.
    * The fiber will be blocked until the result is available. No kernel thread is blocked.
    *
+   * 调用一个异步操作,同步等待结果. 纤程会被阻塞直到得到结果. 没有任何内核线程会被阻塞.
+   *
    * @param consumer  this should encapsulate the asynchronous operation. The handler is passed to it.
-   * @param <T>  the type of the result
-   * @return  the result
+   *                  消费者消费: 被包装成异步操作.
+   * @param <T>  the type of the result 结果类型
+   * @return  the result 结果
    */
   @Suspendable
   public static <T> T awaitResult(Consumer<Handler<AsyncResult<T>>> consumer) {
